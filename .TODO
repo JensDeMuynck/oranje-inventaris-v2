@@ -1,0 +1,5 @@
+Dependency checklist:
+[x] - Vue router
+[x] - Vuex
+[ ] - SCSS Preprocessor
+[ ] - Firebase

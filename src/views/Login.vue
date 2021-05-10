@@ -1,18 +1,22 @@
 <template>
   <h1>Login</h1>
-    <router-link to="/login">Go to overview</router-link>
-    <div @click="test">test</div>
+    <router-link to="/">Go to overview</router-link>
+    <div @click="vueRouterTest">test vue router</div>
+    <div @click="vuexTest">test vuex</div>
 </template>
 
 <script>
 export default {
     methods: {
-        test() {
+        vueRouterTest() {
             console.log('test')
             setTimeout(() => {
                 this.$router.push('/')
             }, 2000);
-        }
+        },
+        vuexTest() {
+            console.log(this.$store.state.user.user)
+        },
     }
 }
 </script>
