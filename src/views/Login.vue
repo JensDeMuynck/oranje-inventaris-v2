@@ -2,7 +2,7 @@
   <h1>Login</h1>
     <router-link to="/">Go to overview</router-link>
     <div @click="vueRouterTest">test vue router</div>
-    <div @click="vuexTest">test vuex</div>
+    <div class="scss-test" @click="vuexTest">test vuex</div>
 </template>
 
 <script>
@@ -20,3 +20,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.scss-test {
+    background: $color-red;
+}
+</style>
