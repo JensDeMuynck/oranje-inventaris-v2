@@ -6,5 +6,5 @@ Dependency checklist:
 
 TODO:
 [x] - import the individual firebase SDK components
-[ ] - implement isotope
-[ ] - implement page transition demo
+[x] - implement isotope
+[x] - implement page transition demo
