@@ -1,5 +1,3 @@
-$color-red: red;
-
-h1 {
-    border: 3px solid $color-red;
-}
+$margin: 20px;
+$columns: 8;
+$columnWidth: calc((100vw - (2 * #{$margin})) / #{$columns});

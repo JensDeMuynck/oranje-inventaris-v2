@@ -1,0 +1,3 @@
+@mixin columns($property, $columns) {
+	#{$property}: calc(#{$columns} * #{$columnWidth});
+}
