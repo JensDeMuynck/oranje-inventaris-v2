@@ -1,3 +1,9 @@
-$margin: 20px;
+$offset: 20px;
 $columns: 8;
-$columnWidth: calc((100vw - (2 * #{$margin})) / #{$columns});
+$columnWidth: calc((100vw - (2 * #{$offset})) / #{$columns});
+
+$color-black: #121212;
+$color-white: #FFFFFF;
+$color-orange-accent: #FFA201;
+$color-orange-neutral: #FFC766;
+$color-orange-light: #FFECCC;

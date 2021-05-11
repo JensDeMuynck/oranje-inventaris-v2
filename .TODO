@@ -8,3 +8,4 @@ TODO:
 [x] - import the individual firebase SDK components
 [x] - implement isotope
 [x] - implement page transition demo
+[ ] - implement email verification

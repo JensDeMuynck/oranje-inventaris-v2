@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { onBeforeMount } from "vue";
+import { onBeforeMount, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import firebase from 'firebase/app';
@@ -22,6 +22,15 @@ export default {
 					router.replace("/");
 				}
 			});
+		});
+
+		onMounted(() => {
+			const appHeight = () => {
+				const doc = document.documentElement
+				doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+			}
+			window.addEventListener('resize', appHeight)
+			appHeight()
 		});
 	},
 };
