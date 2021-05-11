@@ -25,7 +25,7 @@
 
 				<div class="login__options">
 					<label class="login__remember-me"
-						>Onthoud mij?
+						>Ingelogd blijven?
 						<input type="checkbox" v-model="rememberMe" checked="checked"/>
 						<span class="checkmark"></span>
 					</label>
@@ -139,8 +139,9 @@ export default {
 	font-weight: 300;
 	padding: 0.5em 0;
 	color: $color-black;
-	outline: 0;
-	border: 0;
+	outline: none;
+	border: none;
+	border-radius: 0;
 	border-bottom: 1px solid rgba($color: $color-black, $alpha: 0.5);
 	font-family: "Nunito", sans-serif;
 	transition: all 0.2s;
@@ -232,7 +233,7 @@ export default {
 
 /* When the checkbox is checked, add a blue background */
 .login__remember-me input:checked ~ .checkmark {
-	background-color: $color-orange-accent;
+	background-color: $color-orange-neutral;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
