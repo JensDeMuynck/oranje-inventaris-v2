@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from "./router/index"
 import store from './store/index'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDctLs6ZF7d7WSJUksl5EQPXl2qEKl9nM8",
