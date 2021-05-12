@@ -7,3 +7,7 @@ $color-white: #FFFFFF;
 $color-orange-accent: #FFA201;
 $color-orange-neutral: #FFC766;
 $color-orange-light: #FFECCC;
+
+$animate-slow-fast: cubic-bezier(.5,.1,.9,.5);
+$animate-fast-slow: cubic-bezier(.1,.5,.5,.9);
+$animate-ease: cubic-bezier(.5,.1,.5,.9);

@@ -10,3 +10,6 @@ TODO:
 [x] - implement page transition demo
 [ ] - implement email verification
 [ ] - create loader with animated logo
+
+FUTURE:
+[ ] - Try GSAP instead of keyframes
