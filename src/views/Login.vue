@@ -137,7 +137,7 @@ export default {
 	width: 100%;
 	font-size: 1.6rem;
 	font-weight: 300;
-	padding: 0.5em 0;
+	padding: 0.4em 0;
 	color: $color-black;
 	outline: none;
 	border: none;
@@ -158,13 +158,13 @@ export default {
 		color: rgba($color: $color-black, $alpha: 0.5);
 	}
 
-	&:first-child {
+	&:not(:last-child) {
 		margin-bottom: 1em;
 	}
 }
 
 .login__options {
-	font-size: 1.2em;
+	font-size: 1.1em;
 	margin-top: 2rem;
 	display: flex;
 	justify-content: space-between;
