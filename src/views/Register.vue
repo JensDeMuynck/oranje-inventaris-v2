@@ -1,10 +1,10 @@
 <template>
-  <div class="register">
+	<div class="register">
 		<div class="register__wrapper">
-			<h1 class="register__title">Nieuw account</h1>
+			<h1 class="register__title" ref="registerTitle">Nieuw account</h1>
 
 			<form @submit.prevent="Register" class="register__form">
-				<div class="register__inputs">
+				<div class="register__inputs" ref="registerInputs">
 					<input
 						class="register__input register__name"
 						type="text"
@@ -31,45 +31,101 @@
 					/>
 				</div>
 
-				<button class="register__submit">
+				<button class="register__submit" ref="registerSubmit">
 					Registreer
 					<Icon name="arrow-right" class="register__submit-svg" />
 				</button>
 			</form>
 
-			<router-link to="/login" class="register__login"
-				>Log in met een bestaand account.</router-link
-			>
+			<div class="register__login" @click="GoToLogin" ref="registerLogin">
+				Log in met een bestaand account.
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import { ref } from "vue";
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { ref, onMounted } from "vue";
+import firebase from "firebase/app";
+import "firebase/auth";
+import { useRouter } from "vue-router";
 
 export default {
-  setup() {
-    const email = ref('')
-    const password = ref('')
+	setup() {
+		const email = ref("");
+		const password = ref("");
 
-    const Register = () => {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email.value, password.value)
-        .then(user => console.log(user))
-        .catch(err => console.warn(err.message))
-    }
+		const Register = () => {
+			firebase
+				.auth()
+				.createUserWithEmailAndPassword(email.value, password.value)
+				.then((user) => console.log(user))
+				.catch((err) => console.warn(err.message));
+		};
 
-    return {
-      Register,
-      name,
-      email,
-      password
-    }
-  }
-}
+		/* ----- CUSTOM PAGE TRANSITION ----- */
+		const router = useRouter();
+
+		let registerSubmit = ref(null);
+		let registerLogin = ref(null);
+		let registerTitle = ref(null);
+		let registerInputs = ref(null);
+
+		// -- enter state
+		onMounted(() => {
+			let transitions = [
+				registerSubmit.value,
+				registerLogin.value,
+				registerTitle.value,
+				registerInputs.value,
+			];
+
+			transitions.forEach((el) => {
+				el.classList.add("transition-state-enter");
+			});
+
+			setTimeout(() => {
+				transitions.forEach((el) => {
+					el.classList.remove("transition-state-enter");
+				});
+			}, 500);
+		});
+
+		// -- leave state
+		const GoToLogin = () => {
+			let transitions = [
+				registerSubmit.value,
+				registerLogin.value,
+				registerTitle.value,
+				registerInputs.value,
+			];
+
+			transitions.forEach((el) => {
+				el.classList.add("transition-state-leave");
+			});
+
+			setTimeout(() => {
+				router.push({
+					name: "Login",
+				});
+			}, 550);
+		};
+
+		/* ----- END CUSTOM PAGE TRANSITION ----- */
+
+		return {
+			Register,
+			name,
+			email,
+			password,
+			GoToLogin,
+			registerSubmit,
+			registerLogin,
+			registerTitle,
+			registerInputs,
+		};
+	},
+};
 </script>
 
 <style lang="scss">
@@ -99,11 +155,27 @@ export default {
 	font-size: 2.4em;
 	margin-bottom: 1em;
 	font-weight: 300;
+
+	&.transition-state-enter {
+		animation: 0.3s $animate-fast-slow 0s 1 normal both running slide-left;
+	}
+	&.transition-state-leave {
+		animation: 0.3s $animate-slow-fast 0s 1 reverse both running slide-left;
+	}
 }
 
 .register__form {
 	display: flex;
 	flex-direction: column;
+}
+
+.register__inputs {
+	&.transition-state-enter {
+		animation: 0.3s $animate-fast-slow 0.1s 1 normal both running slide-left;
+	}
+	&.transition-state-leave {
+		animation: 0.3s $animate-slow-fast 0.1s 1 reverse both running slide-left;
+	}
 }
 
 .register__input {
@@ -146,21 +218,33 @@ export default {
 }
 
 .register__submit {
-	background: linear-gradient(to bottom right, $color-orange-accent, $color-orange-neutral);
+	background: linear-gradient(
+		to bottom right,
+		$color-orange-accent,
+		$color-orange-neutral
+	);
 	border: 0;
 	outline: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 0 0.7em 0 1em;
+	min-height: 5rem; //FIXME: 'height' doesnt work on IOS
 	height: 5rem;
 	border-radius: 5rem;
 	align-self: flex-end;
 	margin: 5rem 0 1rem;
 	color: $color-white;
 	font-size: 2rem;
-	font-family: 'Nunito', sans-serif;
+	font-family: "Nunito", sans-serif;
 	font-weight: 300;
+
+	&.transition-state-enter {
+		animation: 0.3s $animate-fast-slow 0s 1 normal both running scale-down;
+	}
+	&.transition-state-leave {
+		animation: 0.3s $animate-slow-fast 0s 1 reverse both running scale-down;
+	}
 }
 
 .register__submit-svg {
@@ -174,5 +258,13 @@ export default {
 	margin-bottom: 2.5em;
 	color: $color-black;
 	font-weight: 300;
+	text-decoration: underline;
+
+	&.transition-state-enter {
+		animation: 0.3s $animate-fast-slow 0s 1 normal both running slide-down;
+	}
+	&.transition-state-leave {
+		animation: 0.3s $animate-slow-fast 0s 1 reverse both running slide-down;
+	}
 }
 </style>
