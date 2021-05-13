@@ -1,4 +1,5 @@
 <template>
+	<Header title="Speelgoed"/>
 	<input type="text" ref='searchInput' name="filtr-search" value="" id="search" placeholder="Your search" data-search="">
 
     <div class="grid" ref='grid'>

@@ -1,4 +1,5 @@
 <template>
+	<Header title='Speelpleinen'/>
 	<h1>Overview</h1>
 	<router-link to="/login">Go to login</router-link>
 	<button @click="Logout">Log out</button>
@@ -40,11 +41,15 @@ export default {
 	methods: {
 		Transition(e) {
 			let el = e.target
-			console.log(el)
 
-			let { top, left } = el.getBoundingClientRect() 
+			let { top, left } = el.getBoundingClientRect()
+			
+			let header = document.querySelector('.header');
+			let headerHeight = window.getComputedStyle(header).height;
+			let topOffset = parseInt(headerHeight) - 30;
 
-			el.style.transform = `translate(-${left}px, -${top}px)`
+			el.style.zIndex = '1'
+			el.style.transform = `translate(-${left}px, -${top - topOffset}px)`
 			el.style.width = '100vw'
 
             setTimeout(() => {
@@ -55,11 +60,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.container {
+	width: 80vw;
+	margin: 0 auto;
+}
 .banner {
-	height: 100px;
+	height: 150px;
 	background: lightblue;
-	margin-bottom: 1em;
-    transition: all 0.5s;
+	margin-bottom: 3em;
+    transition: all 0.5s $animate-ease;
+    width: 100%;
 }
 </style>

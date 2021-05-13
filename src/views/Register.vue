@@ -33,7 +33,7 @@
 
 				<button class="register__submit" ref="registerSubmit">
 					Registreer
-					<Icon name="arrow-right" class="register__submit-svg" />
+					<Icon name="arrow-right" classname="register__submit-svg" />
 				</button>
 			</form>
 

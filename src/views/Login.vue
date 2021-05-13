@@ -39,7 +39,7 @@
 				</div>
 
 				<button class="login__submit" ref="loginSubmit">
-					<Icon name="arrow-right" class="login__submit-svg" />
+					<Icon name="arrow-right" classname="login__submit-svg" />
 				</button>
 			</form>
 
