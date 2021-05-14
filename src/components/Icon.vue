@@ -51,6 +51,24 @@
 			d="M4.167,58.333l75,0c2.299,0 4.166,-1.867 4.166,-4.166c0,-2.3 -1.867,-4.167 -4.166,-4.167l-75,0c-2.3,0 -4.167,1.867 -4.167,4.167c0,2.299 1.867,4.166 4.167,4.166Z"
 		/>
 	</svg>
+
+	<svg
+		v-if="name === 'info'"
+		:class="classname"
+		xmlns="http://www.w3.org/2000/svg"
+		width="100%"
+		height="100%"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	>
+		<circle cx="12" cy="12" r="10" class="info__circle"></circle>
+		<line x1="12" y1="16" x2="12" y2="12"></line>
+		<line x1="12" y1="8" x2="12.01" y2="8"></line>
+	</svg>
 </template>
 
 <script>

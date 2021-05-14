@@ -11,5 +11,10 @@ TODO:
 [ ] - implement email verification
 [ ] - create loader with animated logo
 
+FIXME:
+[x] - IOS: banner info circle color is white instead of orange
+[ ] - IOS: Register page -> submit button and link to login overlap
+[ ] - IOS: input placeholder cursor hides placeholder text (only in messenger browser)
+
 FUTURE:
 [ ] - Try GSAP instead of keyframes

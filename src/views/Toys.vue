@@ -31,6 +31,42 @@
         <div class="grid-item" data-toy-name="sketch">
             <div></div>
         </div>
+        <div class="grid-item" data-toy-name="monkey">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="homer">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="olifant">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="sketch">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="monkey">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="homer">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="olifant">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="sketch">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="monkey">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="homer">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="olifant">
+            <div></div>
+        </div>
+        <div class="grid-item" data-toy-name="sketch">
+            <div></div>
+        </div>
     </div>
 </template>
 

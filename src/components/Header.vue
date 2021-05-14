@@ -22,6 +22,7 @@ export default {
 
 		const GoBack = () => {
 			if (currentPage === 'Overview') return false
+			window.scrollTo(0,0);
 			router.go(-1);
 		}
 
@@ -38,11 +39,13 @@ export default {
 		display: flex;
 		padding: 0 $offset;
 		align-items: center;
-		height: calc(var(--app-height) / 10);
+		height: $headerHeight;
 		background: $color-orange-neutral;
 		border-bottom-right-radius: $offset * 1.5;
-		position: relative;
-		z-index: 1;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 10;
 	}
 
 	.header__page-title {

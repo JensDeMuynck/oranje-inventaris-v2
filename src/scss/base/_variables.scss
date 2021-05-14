@@ -11,3 +11,5 @@ $color-orange-light: #FFECCC;
 $animate-slow-fast: cubic-bezier(.5,.1,.9,.5);
 $animate-fast-slow: cubic-bezier(.1,.5,.5,.9);
 $animate-ease: cubic-bezier(.5,.1,.5,.9);
+
+$headerHeight: calc(var(--app-height) / 10);
