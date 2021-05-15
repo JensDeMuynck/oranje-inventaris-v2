@@ -237,6 +237,7 @@
 <script>
 import { ref, onMounted } from "vue";
 import Isotope from "isotope-layout";
+import Packery from "isotope-packery"; // Has to be imported for safari!
 
 export default {
 	setup() {
