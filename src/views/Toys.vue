@@ -330,6 +330,7 @@ export default {
 <style lang='scss'>
 .toys {
 	margin-top: calc(#{$headerHeight} - #{$offset} * 1.5);
+	margin-bottom: 2rem;
 }
 
 .toys__banner {
