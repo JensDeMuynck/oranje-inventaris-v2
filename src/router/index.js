@@ -3,6 +3,7 @@ import Overview from '/src/views/Overview.vue'
 import Login from '/src/views/Login.vue'
 import Register from '/src/views/Register.vue'
 import Toys from '/src/views/Toys.vue'
+import AddToy from '/src/views/AddToy.vue'
 
 const routes = [
     {
@@ -24,6 +25,11 @@ const routes = [
         path: '/toys',
         name: 'Toys',
         component: Toys,
+    },
+    {
+        path: '/add-toy',
+        name: 'Add Toy',
+        component: AddToy,
     },
 ]
 
