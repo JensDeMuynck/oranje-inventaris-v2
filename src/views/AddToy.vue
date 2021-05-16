@@ -35,6 +35,7 @@
 						class="add-toy__input add-toy__description"
 						v-model="description"
 						placeholder="Rode Volkswagen met nummerplaat"
+						@input="ResizeTextarea"
 					></textarea>
 				</div>
 				<div class="add-toy__input-group">
@@ -95,26 +96,27 @@ export default {
 		const AddToy = () => {
 			console.log("adding toy...");
 		};
-		// imagePreviewTag
+		
 		let imagePreviewSource = ref(null);
 		const imagePreview = (el) => {
 			let input = el.currentTarget;
-			let img = input.parentNode.querySelector("img");
 
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 
 				reader.onload = function (e) {
 					imagePreviewSource.value = e.target.result;
-					// $('#blah')
-					//     .attr('src', e.target.result)
-					//     .width(150)
-					//     .height(200);
 				};
 
 				reader.readAsDataURL(input.files[0]);
 			}
 		};
+
+		const ResizeTextarea = (e) => {
+			let el = e.currentTarget;
+			el.style.height = `10rem`;
+			el.style.height = `${el.scrollHeight}px`;
+		}
 
 		return {
 			name,
@@ -122,6 +124,7 @@ export default {
 			AddToy,
 			imagePreview,
 			imagePreviewSource,
+			ResizeTextarea,
 		};
 	},
 };
@@ -171,6 +174,14 @@ export default {
 	&::placeholder {
 		color: rgba($color: $color-black, $alpha: 0.5);
 	}
+}
+
+.add-toy__description {
+	min-height: 10rem;
+	height: 10rem;
+	resize: none;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 .add-toy__file-upload {
