@@ -32,7 +32,7 @@
 						<Icon name="search" classname="toys__search-icon" />
 					</div>
 				</div>
-				<router-link to="/" class="toys__add-toy">
+				<router-link to="/add-toy" class="toys__add-toy">
 					<Icon name="plus" classname="toys__add-toy-icon" />
 				</router-link>
 			</div>

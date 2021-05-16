@@ -8,7 +8,12 @@ TODO:
 [x] - import the individual firebase SDK components
 [x] - implement isotope
 [x] - implement page transition demo
+[x] - Make all css scoped
+		-> Icon component cant be styled
+[x] - use 'setup' in all script tags
+		-> doesnt work, export default is obligatory...
 [ ] - implement email verification
+		-> Add admin password to authorize a new account
 [ ] - create loader with animated logo
 
 FIXME:
@@ -18,3 +23,4 @@ FIXME:
 
 FUTURE:
 [ ] - Try GSAP instead of keyframes
+		-> (dont fix what aint broken?)
