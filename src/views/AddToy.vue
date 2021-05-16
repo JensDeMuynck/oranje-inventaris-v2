@@ -74,8 +74,8 @@
 			</div>
 
 			<div class="add-toy__buttons">
-				<router-link to="/toys" class="add-toy__button add-toy__cancel"
-					>Annuleer</router-link
+				<div @click="router.go(-1)" class="add-toy__button add-toy__cancel"
+					>Annuleer</div
 				>
 				<button class="add-toy__button add-toy__submit">
 					Voeg toe
@@ -87,9 +87,12 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
 	setup() {
+		const router = useRouter();
+
 		const name = ref(null)
 		const description = ref(null)
 
@@ -125,6 +128,7 @@ export default {
 			imagePreview,
 			imagePreviewSource,
 			ResizeTextarea,
+			router
 		};
 	},
 };

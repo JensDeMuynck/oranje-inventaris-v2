@@ -18,7 +18,6 @@ export default {
 	setup() {
 		const router = useRouter();
 		const currentPage = router.currentRoute.value.name
-		console.log(currentPage)
 
 		const GoBack = () => {
 			if (currentPage === 'Overview') return false

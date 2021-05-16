@@ -256,7 +256,7 @@ export default {
 							})
 					)
 			).then(() => {
-				console.log("images finished loading");
+				// console.log("images finished loading");
 
 				iso = new Isotope(grid.value, {
 					layoutMode: "packery",
