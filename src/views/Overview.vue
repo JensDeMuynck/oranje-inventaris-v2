@@ -1,13 +1,11 @@
 <template>
 	<Header title="Speelpleinen" />
 
-	<!-- <button @click="Logout">Log out</button> -->
-
 	<main class="overview">
-		<div @click="Transition" class="overview__banner">
-			<img src="https://picsum.photos/350/200?random=1" class="banner__image"/>
+		<div @click="GoToToys(firebase.auth().currentUser?.uid, $event)" class="overview__banner">
+			<img src="https://picsum.photos/350/200?random=-1" class="banner__image"/>
 			<div class="banner__details">
-				<h2 class="banner__title">Speelplein Assenede</h2>
+				<h2 class="banner__title">{{firebase.auth().currentUser?.displayName}}</h2>
 				<div class="banner__info-wrapper">
 					<Icon name="info" classname="banner__info"/>
 				</div>
@@ -16,46 +14,10 @@
 
 		<h1 class="overview__others">Andere speelpleinen</h1>
 
-		<div @click="Transition" class="overview__banner">
-			<img src="https://picsum.photos/350/200?random=2" class="banner__image"/>
+		<div @click="GoToToys(org[1].uid, $event)" v-for="(org, index) in orgs" :key="org[1].uid" class="overview__banner">
+			<img :src="`https://picsum.photos/350/200?random=${index}`" class="banner__image"/>
 			<div class="banner__details">
-				<h2 class="banner__title">Speelplein Assenede</h2>
-				<div class="banner__info-wrapper">
-					<Icon name="info" classname="banner__info"/>
-				</div>
-			</div>
-		</div>
-		<div @click="Transition" class="overview__banner">
-			<img src="https://picsum.photos/350/200?random=3" class="banner__image"/>
-			<div class="banner__details">
-				<h2 class="banner__title">Speelplein Assenede</h2>
-				<div class="banner__info-wrapper">
-					<Icon name="info" classname="banner__info"/>
-				</div>
-			</div>
-		</div>
-		<div @click="Transition" class="overview__banner">
-			<img src="https://picsum.photos/350/200?random=4" class="banner__image"/>
-			<div class="banner__details">
-				<h2 class="banner__title">Speelplein Assenede</h2>
-				<div class="banner__info-wrapper">
-					<Icon name="info" classname="banner__info"/>
-				</div>
-			</div>
-		</div>
-		<div @click="Transition" class="overview__banner">
-			<img src="https://picsum.photos/350/200?random=5" class="banner__image"/>
-			<div class="banner__details">
-				<h2 class="banner__title">Speelplein Assenede</h2>
-				<div class="banner__info-wrapper">
-					<Icon name="info" classname="banner__info"/>
-				</div>
-			</div>
-		</div>
-		<div @click="Transition" class="overview__banner">
-			<img src="https://picsum.photos/350/200?random=6" class="banner__image"/>
-			<div class="banner__details">
-				<h2 class="banner__title">Speelplein Assenede</h2>
+				<h2 class="banner__title">{{org[0]}}</h2>
 				<div class="banner__info-wrapper">
 					<Icon name="info" classname="banner__info"/>
 				</div>
@@ -65,9 +27,32 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
+
 export default {
+	setup() {
+		let orgs = ref(null);
+
+		let fbRef = firebase.database().ref('users')
+		fbRef.orderByChild('type').equalTo('org').on('value', snapshot => {
+			let arrData = Object.entries(snapshot.val())
+
+			orgs.value = arrData.filter(([key, value]) => {
+				return value.uid !== firebase.auth().currentUser.uid;
+			})
+		})
+
+		return {
+			firebase,
+			orgs,
+		}
+	},
 	methods: {
-		Transition(e) {
+		GoToToys(uid, e) {
+			// transition
 			let el = e.currentTarget;
 
 			let { top, left } = el.getBoundingClientRect();
@@ -81,8 +66,9 @@ export default {
 			el.style.width = "100vw";
 			el.style.borderRadius = "0";
 
+			// redirect
 			setTimeout(() => {
-				this.$router.push("/toys");
+				this.$router.push({name: "Toys", params: { uid }});
 			}, 500);
 		},
 	},

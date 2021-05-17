@@ -238,9 +238,13 @@
 import { ref, onMounted } from "vue";
 import Isotope from "isotope-layout";
 import Packery from "isotope-packery"; // Has to be imported for safari!
+import { useRoute } from "vue-router";
 
 export default {
 	setup() {
+		const route = useRoute();
+		console.log(route.params);
+
 		const grid = ref(null);
 		const searchInput = ref(null);
 		let iso;
@@ -272,12 +276,9 @@ export default {
 					let pos = parseInt(window.getComputedStyle(item).left);
 					let img = item.querySelector('img')
 
-					if (pos !== 0) {
-						img.style.borderRadius = "0 0 2rem 0";
-					}
-					else {
-						img.style.borderRadius = "0 0 0 2rem";
-					}
+					img.style.borderRadius = pos !== 0 
+						? "0 0 2rem 0"
+						: "0 0 0 2rem";
 				});
 			});
 		});
@@ -325,6 +326,7 @@ export default {
 		}
 
 		return {
+			route,
 			grid,
 			searchInput,
 			Filter,

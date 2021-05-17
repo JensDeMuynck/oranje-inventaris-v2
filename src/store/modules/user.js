@@ -1,16 +1,34 @@
 const state = () => ({
-    user: 'Anna'
+    // uid: '',
+    // name: '',
 })
 
 const getters = {
-    getUser: state => {
-      return state.user
-    }
+    // getUid: state => {
+    //   return state.uid
+    // },
+    // getName: state => {
+    //   return state.name
+    // }
 }
 
-const actions = {}
+const actions = {
+	// setUid(context, uid) {
+	// 	context.commit('setUid', uid);
+	// },
+	// setName(context, name) {
+	// 	context.commit('setName', name);
+	// },
+}
 
-const mutations = {}
+const mutations = {
+	// setUid(state, uid) {
+	// 	state.uid = uid;
+	// },
+	// setName(state, name) {
+	// 	state.name = name;
+	// },
+}
 
 export default {
     namespaced: true,
