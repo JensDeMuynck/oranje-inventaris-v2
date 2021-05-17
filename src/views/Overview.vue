@@ -65,24 +65,7 @@
 </template>
 
 <script>
-import { ref, onBeforeMount } from "vue";
-import firebase from "firebase/app";
-import "firebase/auth";
-
 export default {
-	setup() {
-		// const Logout = () => {
-		// 	firebase
-		// 		.auth()
-		// 		.signOut()
-		// 		.then(() => console.log('Signed out succesfully'))
-		// 		.catch(err => console.warn(err.message))
-		// }
-
-		return {
-			// Logout
-		};
-	},
 	methods: {
 		Transition(e) {
 			let el = e.currentTarget;

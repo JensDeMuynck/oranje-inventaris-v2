@@ -4,7 +4,7 @@
 			<Icon v-if='currentPage !== "Overview"' name="go-back" classname="header__go-back" />
 		</div>
 		<div class="header__page-title">{{ title }} {{  }}</div>
-		<div class="header__menu-wrapper">
+		<div class="header__menu-wrapper" @click="Logout">
 			<Icon name="menu" classname="header__menu" />
 		</div>
 	</div>
@@ -12,6 +12,8 @@
 
 <script>
 import { useRouter } from "vue-router";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
 	props: ["title"],
@@ -25,9 +27,19 @@ export default {
 			router.go(-1);
 		}
 
+		const Logout = () => {
+			console.log('Logging out...');
+			firebase
+				.auth()
+				.signOut()
+				.then(() => console.log('Signed out succesfully'))
+				.catch(err => console.warn(err.message))
+		}
+
 		return {
 			currentPage,
 			GoBack,
+			Logout,
 		}
 	}
 };

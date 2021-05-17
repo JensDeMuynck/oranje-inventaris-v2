@@ -48,18 +48,43 @@
 import { ref, onMounted } from "vue";
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 import { useRouter } from "vue-router";
 
 export default {
 	setup() {
+		const name = ref("");
 		const email = ref("");
 		const password = ref("");
+
+		let user = null;
 
 		const Register = () => {
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(email.value, password.value)
-				.then((user) => console.log(user))
+				.then((cred) => {
+					console.log('Registered user:');
+					console.log(cred);
+
+					user = firebase.auth().currentUser;
+
+					// set display name
+					return user.updateProfile({
+						displayName: name.value
+					})
+				})
+				.then(() => {
+					let type = email.value == 'demuynck.jens@gmail.com'
+						? 'admin'
+						: 'org';
+
+					// set user in database
+					firebase.database().ref('users/' + name.value).set({
+						uid: user.uid,
+						type: type
+					});
+				})
 				.catch((err) => console.warn(err.message));
 		};
 
