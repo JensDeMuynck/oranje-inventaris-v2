@@ -3,19 +3,28 @@ import App from './App.vue'
 import router from "./router/index"
 import store from './store/index'
 import firebase from 'firebase/app'
+import BugBattle from 'bugbattle';
 
+/* ----- BUG BATTLE -----*/
+BugBattle.initialize("t5f6GSUpzuxHpefFL6P58pyKSnbUz9gI", BugBattle.FEEDBACK_BUTTON);
+BugBattle.setMainColor("#FFC766");
+BugBattle.enablePoweredByBugbattle(false);
+BugBattle.enableReplays(true);
+
+/* ----- FIREBASE -----*/
 const firebaseConfig = {
-    apiKey: "AIzaSyDctLs6ZF7d7WSJUksl5EQPXl2qEKl9nM8",
-    authDomain: "oranje-inventaris-v2.firebaseapp.com",
-    databaseURL: "https://oranje-inventaris-v2-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "oranje-inventaris-v2",
-    storageBucket: "oranje-inventaris-v2.appspot.com",
-    messagingSenderId: "863727250204",
-    appId: "1:863727250204:web:a5f2ffa5e81ecba74868d9"
+	apiKey: "AIzaSyDctLs6ZF7d7WSJUksl5EQPXl2qEKl9nM8",
+	authDomain: "oranje-inventaris-v2.firebaseapp.com",
+	databaseURL: "https://oranje-inventaris-v2-default-rtdb.europe-west1.firebasedatabase.app",
+	projectId: "oranje-inventaris-v2",
+	storageBucket: "oranje-inventaris-v2.appspot.com",
+	messagingSenderId: "863727250204",
+	appId: "1:863727250204:web:a5f2ffa5e81ecba74868d9"
 };
 
 firebase.initializeApp(firebaseConfig)
 
+/* ----- VUE -----*/
 const app = createApp(App)
 
 app.use(router)
