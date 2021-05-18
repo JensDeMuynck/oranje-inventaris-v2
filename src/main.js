@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from "./router/index"
 import store from './store/index'
 import firebase from 'firebase/app'
+import BugBattle from 'bugbattle';
+
+BugBattle.initialize("t5f6GSUpzuxHpefFL6P58pyKSnbUz9gI", BugBattle.FEEDBACK_BUTTON);
+BugBattle.setMainColor("#FFC766");
 
 const firebaseConfig = {
     apiKey: "AIzaSyDctLs6ZF7d7WSJUksl5EQPXl2qEKl9nM8",
