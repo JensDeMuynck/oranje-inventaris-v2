@@ -15,11 +15,16 @@ TODO:
 [ ] - implement email verification
 		-> Add admin password to authorize a new account
 [ ] - create loader with animated logo
+[ ] - Change url /toys/:uid => /:uid
+[ ] - Change "toys" references to "props"
 
 FIXME:
 [x] - IOS: banner info circle color is white instead of orange
 [ ] - IOS: Register page -> submit button and link to login overlap
-[ ] - IOS: input placeholder cursor hides placeholder text (only in messenger browser)
+[ ] - IOS: input placeholder cursor hides placeholder text 
+		-> only in messenger browser
+[ ] - Console font errors
+		-> (GET http://localhost:3000/toys/src/assets/fonts/Nunito-Light.woff2 net::ERR_ABORTED 404 (Not Found))
 
 FUTURE:
 [ ] - Try GSAP instead of keyframes

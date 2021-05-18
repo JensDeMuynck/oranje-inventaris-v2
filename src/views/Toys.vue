@@ -40,6 +40,7 @@
 			<div class="grid" ref="grid">
 				<div class="grid__bg-rect"></div>
 				<div class="gutter-sizer"></div>
+				
 				<div class="grid-item" data-toy-name="giraf">
 					<div class="grid-item__inner">
 						<img :src="Rand()" class="grid-item__image"/>
