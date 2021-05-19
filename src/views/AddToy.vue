@@ -144,6 +144,9 @@ export default {
 			// create storage ref
 			let storageRef = firebase.storage().ref(fileDirectory);
 
+			// get current user uid
+			let uid = firebase.auth().currentUser.uid
+
 			// upload file
 			task = storageRef.put(file);
 
@@ -157,7 +160,7 @@ export default {
 					elProgressbar.value = percentage;
 				},
 				function error(err) {
-					console.log(err);
+					console.warn(err);
 				},
 				function complete() {
 					// Create toy to firebase
@@ -167,15 +170,27 @@ export default {
 						picture: fileDirectory,
 						// taken: that.toy_taken || false,
 						// child: that.toy_taken ? that.toy_child : "null",
-						owner: firebase.auth().currentUser.uid,
+						owner: uid,
 						timestamp: currentTimestamp,
 					};
+
 					let ref = firebase.database().ref("props");
-					ref.push(data);
+
+					let pushkey = ref.push(data).key;
+
+					storageRef.getDownloadURL()
+					.then((url) => {
+						ref.child(pushkey).update({pictureUrl: url})
+					})
+					.catch((error) => {
+						// Handle any errors
+						console.warn(error);
+					});
+
 
 					// Return to listing page
 					setTimeout(() => {
-						router.push({ name: "Overview" });
+						router.go(-1)
 					}, 500);
 				}
 			);

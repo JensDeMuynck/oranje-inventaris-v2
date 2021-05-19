@@ -32,7 +32,11 @@
 						<Icon name="search" classname="toys__search-icon" />
 					</div>
 				</div>
-				<router-link to="/add-toy" class="toys__add-toy">
+				<router-link
+					v-if="firebase.auth().currentUser?.uid === route.params.uid"
+					to="/add-toy"
+					class="toys__add-toy"
+				>
 					<Icon name="plus" classname="toys__add-toy-icon" />
 				</router-link>
 			</div>
@@ -40,193 +44,25 @@
 			<div class="grid" ref="grid">
 				<div class="grid__bg-rect"></div>
 				<div class="gutter-sizer"></div>
-				
-				<div class="grid-item" data-toy-name="giraf">
+
+				<div
+					v-for="prop in props"
+					:key="prop.timestamp"
+					:data-toy-name="prop.name"
+					class="grid-item"
+				>
 					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
+						<img
+							:src="prop.pictureUrl"
+							class="grid-item__image"
+							@load="PropImageLoaded"
+						/>
 						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="banaan">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="basket">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="hond">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="face">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="monkey">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="homer">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="olifant">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="sketch">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="monkey">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="homer">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="olifant">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="sketch">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="monkey">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="homer">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="olifant">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="sketch">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="monkey">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="homer">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="olifant">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
-						</div>
-					</div>
-				</div>
-				<div class="grid-item" data-toy-name="sketch">
-					<div class="grid-item__inner">
-						<img :src="Rand()" class="grid-item__image"/>
-						<div class="grid-item__content">
-							<h2 class="grid-item__name">Teletubbies</h2>
-							<Icon name="settings" classname="grid-item__settings"></Icon>
+							<h2 class="grid-item__name">{{ prop.name }}</h2>
+							<Icon
+								name="settings"
+								classname="grid-item__settings"
+							></Icon>
 						</div>
 					</div>
 				</div>
@@ -236,52 +72,94 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onBeforeMount } from "vue";
 import Isotope from "isotope-layout";
 import Packery from "isotope-packery"; // Has to be imported for safari!
 import { useRoute } from "vue-router";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/storage";
 
 export default {
 	setup() {
 		const route = useRoute();
-		console.log(route.params);
+		// console.log(route.params);
 
 		const grid = ref(null);
 		const searchInput = ref(null);
 		let iso;
 
-		onMounted(() => {
-			Promise.all(
-				Array.from(document.images)
-					.filter((img) => !img.complete)
-					.map(
-						(img) =>
-							new Promise((resolve) => {
-								img.onload = img.onerror = resolve;
-							})
-					)
-			).then(() => {
-				// console.log("images finished loading");
+		let props = ref(null);
+		let propsLength = 0;
+		const FetchProps = () => {
+			let fbRef = firebase.database().ref("props");
+			fbRef
+				.orderByChild("owner")
+				.equalTo(route.params.uid)
+				.on("value", (snapshot) => {
+					props.value = snapshot.val();
+					if (!props.value) {
+						console.log("No props in database.");
+						return;
+					}
 
-				iso = new Isotope(grid.value, {
-					layoutMode: "packery",
-					itemSelector: ".grid-item",
-					percentPosition: true,
-					packery: {
-						gutter: ".gutter-sizer",
-					},
+					propsLength = Object.keys(props.value).length;
 				});
+		};
 
-				let gridItems = [...document.querySelectorAll('.grid-item')]
-				gridItems.forEach(item => {
-					let pos = parseInt(window.getComputedStyle(item).left);
-					let img = item.querySelector('img')
+		let storageRef = firebase.storage().ref()
+		let propImages = ref([])
+		const GetPictureDownloadUrl = (dir) => {
+			console.log(dir);
 
-					img.style.borderRadius = pos !== 0 
-						? "0 0 2rem 0"
-						: "0 0 0 2rem";
+			storageRef
+				.child(dir)
+				.getDownloadURL()
+				.then((url) => {
+					// `url` is the download URL for 'images/stars.jpg'
+					return url
+					// propImages[index] = url
+				})
+				.catch((error) => {
+					// Handle any errors
+					console.warn(error);
+					faultyDirectoryCount++
+					propImages[index] = `https://picsum.photos/350/200?random=${faultyDirectoryCount}`
+					// propImages[index] = `https://picsum.photos/350/200?random=${faultyDirectoryCount}`
 				});
+		};
+
+		let imagesLoadedCount = 0;
+		const PropImageLoaded = () => {
+			imagesLoadedCount++;
+
+			if (imagesLoadedCount >= propsLength) {
+				InitIsotope();
+			}
+		};
+
+		const InitIsotope = () => {
+			iso = new Isotope(grid.value, {
+				layoutMode: "packery",
+				itemSelector: ".grid-item",
+				percentPosition: true,
+				packery: {
+					gutter: ".gutter-sizer",
+				},
 			});
+
+			let gridItems = [...document.querySelectorAll(".grid-item")];
+			gridItems.forEach((item) => {
+				let pos = parseInt(window.getComputedStyle(item).left);
+				let img = item.querySelector("img");
+
+				img.style.borderRadius =
+					pos !== 0 ? "0 0 2rem 0" : "0 0 0 2rem";
+			});
+		};
+
+		onBeforeMount(() => {
+			FetchProps();
 		});
 
 		const Filter = (e) => {
@@ -305,33 +183,29 @@ export default {
 			});
 
 			// Update Border radius
-			iso.on('arrangeComplete', function( filteredItems ) {
-				filteredItems.forEach(item => {
-					let el = item.element
-					let img = el.querySelector('img')
+			iso.on("arrangeComplete", function (filteredItems) {
+				filteredItems.forEach((item) => {
+					let el = item.element;
+					let img = el.querySelector("img");
 
 					if (item.position.x !== 0) {
 						img.style.borderRadius = "0 0 2rem 0";
-					}
-					else {
+					} else {
 						img.style.borderRadius = "0 0 0 2rem";
 					}
 				});
-			})
+			});
 		};
-
-		const Rand = () => {
-			let w = Math.round(Math.random() * 300) + 200;
-			let h = Math.round(Math.random() * 500) + 200;
-			return `https://picsum.photos/${w}/${h}`
-		}
 
 		return {
 			route,
+			firebase,
 			grid,
 			searchInput,
+			GetPictureDownloadUrl,
+			PropImageLoaded,
 			Filter,
-			Rand,
+			props,
 		};
 	},
 };
@@ -432,6 +306,9 @@ export default {
 }
 
 /* ---- grid ---- */
+.grid {
+	transition: height 0.5s;
+}
 /* clear fix */
 .grid:after {
 	content: "";

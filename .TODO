@@ -17,6 +17,7 @@ TODO:
 [ ] - create loader with animated logo
 [ ] - Change url /toys/:uid => /:uid
 [ ] - Change "toys" references to "props"
+[ ] - check: Other orgs should only render when orgs.length > 0
 
 FIXME:
 [x] - IOS: banner info circle color is white instead of orange
@@ -25,6 +26,8 @@ FIXME:
 		-> only in messenger browser
 [ ] - Console font errors
 		-> (GET http://localhost:3000/toys/src/assets/fonts/Nunito-Light.woff2 net::ERR_ABORTED 404 (Not Found))
+[ ] - Console isotope error
+		-> (Bad element for isotope: null)
 
 FUTURE:
 [ ] - Try GSAP instead of keyframes
