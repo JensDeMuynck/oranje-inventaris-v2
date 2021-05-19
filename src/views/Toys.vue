@@ -7,7 +7,7 @@
 				class="banner__image"
 			/>
 			<div class="banner__details">
-				<h2 class="banner__title">Speelplein Assenede</h2>
+				<h2 class="banner__title">{{allImagesLoaded}}</h2>
 				<div class="banner__info-wrapper">
 					<Icon name="info" classname="banner__info" />
 				</div>
@@ -41,7 +41,8 @@
 				</router-link>
 			</div>
 
-			<div class="grid" ref="grid">
+			<AnimatedLogo v-show="!allImagesLoaded" />
+			<div v-show="allImagesLoaded" class="grid" ref="grid">
 				<div class="grid__bg-rect"></div>
 				<div class="gutter-sizer"></div>
 
@@ -72,7 +73,7 @@
 </template>
 
 <script>
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, nextTick } from "vue";
 import Isotope from "isotope-layout";
 import Packery from "isotope-packery"; // Has to be imported for safari!
 import { useRoute } from "vue-router";
@@ -130,10 +131,14 @@ export default {
 		};
 
 		let imagesLoadedCount = 0;
-		const PropImageLoaded = () => {
+		let allImagesLoaded = ref(false);
+		const PropImageLoaded = async () => {
 			imagesLoadedCount++;
 
 			if (imagesLoadedCount >= propsLength) {
+				// all images are loaded
+				allImagesLoaded.value = true
+				await nextTick()
 				InitIsotope();
 			}
 		};
@@ -204,6 +209,7 @@ export default {
 			searchInput,
 			GetPictureDownloadUrl,
 			PropImageLoaded,
+			allImagesLoaded,
 			Filter,
 			props,
 		};
@@ -213,8 +219,13 @@ export default {
 
 <style lang='scss'>
 .toys {
-	margin-top: calc(#{$headerHeight} - #{$offset} * 1.5);
+	$marginTop: calc(#{$headerHeight} - #{$offset} * 1.5);
+	margin-top: $marginTop;
 	margin-bottom: 2rem;
+	min-height: calc(var(--app-height) - #{$marginTop});
+	border: 1px solid red;
+	display: flex;
+	flex-direction: column;
 }
 
 .toys__banner {
@@ -244,6 +255,9 @@ export default {
 
 .toys__list {
 	margin: 0 $offset;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 	@include columns("width", 8);
 }
 
