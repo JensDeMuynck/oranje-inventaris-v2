@@ -7,7 +7,7 @@
 				class="banner__image"
 			/>
 			<div class="banner__details">
-				<h2 class="banner__title">{{allImagesLoaded}}</h2>
+				<h2 class="banner__title">{{ currentUserName }}</h2>
 				<div class="banner__info-wrapper">
 					<Icon name="info" classname="banner__info" />
 				</div>
@@ -86,6 +86,17 @@ export default {
 		const route = useRoute();
 		// console.log(route.params);
 
+		let currentUserName = ref("");
+		const FetchUsername = () => {
+			let userId = route.params.uid
+			var ref = firebase.database().ref("users");
+			ref.orderByChild("uid")
+				.equalTo(userId)
+				.on("value", function (snapshot) {
+					currentUserName.value = Object.keys(snapshot.val())[0];
+				});
+		};
+
 		const grid = ref(null);
 		const searchInput = ref(null);
 		let iso;
@@ -108,8 +119,8 @@ export default {
 				});
 		};
 
-		let storageRef = firebase.storage().ref()
-		let propImages = ref([])
+		let storageRef = firebase.storage().ref();
+		let propImages = ref([]);
 		const GetPictureDownloadUrl = (dir) => {
 			console.log(dir);
 
@@ -118,14 +129,16 @@ export default {
 				.getDownloadURL()
 				.then((url) => {
 					// `url` is the download URL for 'images/stars.jpg'
-					return url
+					return url;
 					// propImages[index] = url
 				})
 				.catch((error) => {
 					// Handle any errors
 					console.warn(error);
-					faultyDirectoryCount++
-					propImages[index] = `https://picsum.photos/350/200?random=${faultyDirectoryCount}`
+					faultyDirectoryCount++;
+					propImages[
+						index
+					] = `https://picsum.photos/350/200?random=${faultyDirectoryCount}`;
 					// propImages[index] = `https://picsum.photos/350/200?random=${faultyDirectoryCount}`
 				});
 		};
@@ -137,8 +150,8 @@ export default {
 
 			if (imagesLoadedCount >= propsLength) {
 				// all images are loaded
-				allImagesLoaded.value = true
-				await nextTick()
+				allImagesLoaded.value = true;
+				await nextTick();
 				InitIsotope();
 			}
 		};
@@ -164,6 +177,7 @@ export default {
 		};
 
 		onBeforeMount(() => {
+			FetchUsername();
 			FetchProps();
 		});
 
@@ -204,6 +218,7 @@ export default {
 
 		return {
 			route,
+			currentUserName,
 			firebase,
 			grid,
 			searchInput,
@@ -222,8 +237,7 @@ export default {
 	$marginTop: calc(#{$headerHeight} - #{$offset} * 1.5);
 	margin-top: $marginTop;
 	margin-bottom: 2rem;
-	min-height: calc(var(--app-height) - #{$marginTop});
-	border: 1px solid red;
+	min-height: calc(var(--app-height) - #{$marginTop} - 2rem);
 	display: flex;
 	flex-direction: column;
 }

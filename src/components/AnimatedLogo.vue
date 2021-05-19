@@ -459,6 +459,7 @@ export default {};
 	margin: 0 auto;
 	flex: 1;
 	display: flex;
+	opacity: 0.5;
 	@include columns("width", 4);
 }
 
