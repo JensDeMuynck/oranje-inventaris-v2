@@ -15,7 +15,7 @@
 			</div>
 		</div>
 
-		<form @submit.prevent="AddToy" class="add-toy__form">
+		<form @submit.prevent="Upload" class="add-toy__form">
 			<div class="add-toy__inputs">
 				<div class="add-toy__input-group">
 					<label class="add-toy__input-label">Naam speelgoed</label>
@@ -59,12 +59,11 @@
 							type="file"
 							accept="image/png, image/jpeg"
 							@change="imagePreview"
-							required
 						/>
 						<progress
 							class="add-toy__upload-progress"
-							ref="progress"
-							value="40"
+							ref="progressbar"
+							value="0"
 							max="100"
 						>
 							0%
@@ -74,9 +73,9 @@
 			</div>
 
 			<div class="add-toy__buttons">
-				<div @click="router.go(-1)" class="add-toy__button add-toy__cancel"
-					>Annuleer</div
-				>
+				<div @click="Cancel" class="add-toy__button add-toy__cancel">
+					Annuleer
+				</div>
 				<button class="add-toy__button add-toy__submit">
 					Voeg toe
 				</button>
@@ -88,18 +87,15 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/storage";
+import "firebase/database";
 
 export default {
 	setup() {
 		const router = useRouter();
 
-		const name = ref(null)
-		const description = ref(null)
-
-		const AddToy = () => {
-			console.log("adding toy...");
-		};
-		
 		let imagePreviewSource = ref(null);
 		const imagePreview = (el) => {
 			let input = el.currentTarget;
@@ -119,16 +115,106 @@ export default {
 			let el = e.currentTarget;
 			el.style.height = `10rem`;
 			el.style.height = `${el.scrollHeight}px`;
-		}
+		};
+
+		/* ----- UPLOAD ----- */
+		let progressbar = ref(null);
+		let uploader = ref(null);
+		let name = ref(null);
+		let description = ref(null);
+
+		let task = null;
+
+		const Upload = () => {
+			console.log("adding toy...");
+
+			// check if file is present
+			if (!uploader.value.files.length) {
+				console.warn("No image selected");
+				return;
+			}
+
+			// get file
+			let file = uploader.value.files[0];
+
+			// create timestamp
+			let currentTimestamp = new Date().getTime();
+			let fileDirectory = `props/${file.name}-${currentTimestamp}`;
+
+			// create storage ref
+			let storageRef = firebase.storage().ref(fileDirectory);
+
+			// get current user uid
+			let uid = firebase.auth().currentUser.uid
+
+			// upload file
+			task = storageRef.put(file);
+
+			// update progress bar
+			task.on(
+				"state_changed",
+				function progress(snapshot) {
+					let percentage =
+						(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					let elProgressbar = progressbar.value;
+					elProgressbar.value = percentage;
+				},
+				function error(err) {
+					console.warn(err);
+				},
+				function complete() {
+					// Create toy to firebase
+					let data = {
+						name: name.value,
+						description: description.value,
+						picture: fileDirectory,
+						// taken: that.toy_taken || false,
+						// child: that.toy_taken ? that.toy_child : "null",
+						owner: uid,
+						timestamp: currentTimestamp,
+					};
+
+					let ref = firebase.database().ref("props");
+
+					let pushkey = ref.push(data).key;
+
+					storageRef.getDownloadURL()
+					.then((url) => {
+						ref.child(pushkey).update({pictureUrl: url})
+					})
+					.catch((error) => {
+						// Handle any errors
+						console.warn(error);
+					});
+
+
+					// Return to listing page
+					setTimeout(() => {
+						router.go(-1)
+					}, 500);
+				}
+			);
+		};
+
+		const Cancel = () => {
+			if (task !== null) {
+				task.cancel();
+				console.log("cancelled upload task");
+			}
+			router.go(-1);
+		};
 
 		return {
-			name,
-			description,
-			AddToy,
+			Upload,
+			Cancel,
 			imagePreview,
 			imagePreviewSource,
 			ResizeTextarea,
-			router
+			router,
+			name,
+			description,
+			progressbar,
+			uploader,
 		};
 	},
 };
@@ -231,6 +317,7 @@ export default {
 
 	&[value]::-webkit-progress-value {
 		background: $color-orange-accent;
+		transition: width 0.5s ease;
 	}
 }
 

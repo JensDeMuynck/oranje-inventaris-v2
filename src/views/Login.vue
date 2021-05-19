@@ -74,11 +74,17 @@ export default {
 			firebase
 				.auth()
 				.signInWithEmailAndPassword(email.value, password.value)
-				.then((data) => console.log(data))
+				.then((data) => {
+					/* console.log(data) */
+					return;
+				})
 				.catch((err) => console.warn(err.message));
 		};
 
 		const forgotPassword = () => {
+			console.warn('This function has been disabled by the admin.')
+			return
+
 			if (!email.value) {
 				console.log("no email");
 				return;
