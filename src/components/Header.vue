@@ -3,9 +3,10 @@
 		<div class="header__go-back-wrapper" @click="GoBack">
 			<Icon v-if='currentPage !== "Overview"' name="go-back" classname="header__go-back" />
 		</div>
-		<div class="header__page-title">{{ title }} {{  }}</div>
+		<div class="header__page-title">{{ title }}</div>
 		<div class="header__menu-wrapper" @click="Logout">
-			<Icon name="menu" classname="header__menu" />
+			<!-- <Icon name="menu" classname="header__menu" /> -->
+			<Icon name="signout" classname="header__menu" />
 		</div>
 	</div>
 </template>
